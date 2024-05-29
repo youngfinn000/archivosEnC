@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+#define archivosNum "numeros.bin"
+
 /// estructura  a utilizar para el tp
 typedef struct
 {
@@ -13,6 +16,8 @@ typedef struct
 } stAlumno;
 
 /// PROTOTIPADO ///////////////////////////
+void agregarDatoAlFinalDeUnArchivo ( char nombreDelArchivo []);
+void mostrarArchivo (char nombreDeArchivo[]);
 
 
 
@@ -24,16 +29,17 @@ int main()
     do
     {
         printf(" aca va cada ejercicio del tp\n");
-            printf("ingrese el numero del ejercicio para verlo (caso 1 hasta caso 17):\n ");
+        printf("ingrese el numero del ejercicio para verlo (caso 1 hasta caso 17):\n ");
         scanf("%d",&caso);
         switch(caso)
         {
         case 1:
-
+            agregarDatoAlFinalDeUnArchivo ( archivosNum);
 
             break;
 
         case 2:
+            mostrarArchivo (archivosNum);
 
 
             break;
@@ -114,3 +120,54 @@ int main()
 }
 
 /// FUNCIONES //////////////////////////////
+
+
+void agregarDatoAlFinalDeUnArchivo ( char nombreDelArchivo [])
+{
+    FILE* punteroArchivo=fopen(archivosNum, "ab");
+
+    char control ='s';
+    int num;
+    if (punteroArchivo)
+    {
+        while(control=='s')
+        {
+            printf("ingresar un numero:\n");
+            scanf("%d",&num);
+
+            fwrite(&num,sizeof(int),1,punteroArchivo);
+
+            printf("queres seguir?\n");
+            fflush(stdin);
+            scanf("%c", &control);
+
+        }
+        fclose(punteroArchivo);
+    }
+    else
+    {
+        printf("\nel archivo no se pudo abrir.\n");
+    }
+}
+
+/// 2 mostrar archivo
+void mostrarArchivo (char nombreDeArchivo[])
+{
+    FILE* punteroarchi =fopen(nombreDeArchivo,"rb");
+    int num=0;
+
+    if(punteroarchi)
+    {
+        while(fread(&num, sizeof(int), 1, punteroarchi) !=0)
+        {
+            printf("Valor: %d\n", num);
+        }
+        fclose(punteroarchi);
+    }
+    else
+    {
+        printf("error\n");
+
+    }
+}
+
