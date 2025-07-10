@@ -10,6 +10,7 @@ int cargarArregloDin(int dim, int **arregloDinamico)
     
     return validos;
 }
+
 Vacunas* agregarUnElementoAlArreglo (Vacunas *arreglo, int *validos)
 {
     (*validos)++; // aumentamos el tamano logico
@@ -49,6 +50,7 @@ int pasarDePilaAarreglo (Pila aCopiar, int arreglo[], int dim)
 
     return validos;
 }
+
 
 int insertarEnArregloOrdenada (int arreglo[], int validos, int aAgregar)
 {
